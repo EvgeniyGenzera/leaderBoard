@@ -1,0 +1,54 @@
+@import '../../core/scss/variable.scss';
+
+.table {
+	background: $white;
+	border: 1px solid $table-border;
+	box-sizing: border-box;
+	border-radius: 10px;
+	padding: 20px 30px;
+	margin-top: 40px;
+}
+.header {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: repeat(4, 1fr);
+	margin-bottom: 30px;
+	&__title {
+		margin: 0;
+		font-family: Gilroy;
+		font-style: normal;
+		font-weight: 600;
+		font-size: 20px;
+		line-height: 32px;
+		color: $black-text;
+	}
+	&__days {
+		background: $main-purple;
+		padding: 10px 10px;
+		color: $yellow;
+		font-size: 16px;
+		border: 1px solid $yellow;
+		border-radius: 6px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	&__add {
+		font-family: Lato;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 18px;
+		color: $white;
+		padding: 10px 10px;
+		background: $main-purple;
+		border: 1px solid #eceef5;
+		box-sizing: border-box;
+		border-radius: 6px;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}

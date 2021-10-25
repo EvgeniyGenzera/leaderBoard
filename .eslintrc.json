@@ -1,0 +1,38 @@
+{
+	"rules": {
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"react/react-in-jsx-scope": "off",
+		"react/jsx-filename-extension": [0, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+		"import/prefer-default-export": "off",
+		"import/no-extraneous-dependencies": [
+			"error",
+			{ "devDependencies": true, "optionalDependencies": true, "peerDependencies": true }
+		],
+		"import/no-unresolved": "off",
+		"react/prop-types": ["off"]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		}
+	},
+	"plugins": ["import", "@typescript-eslint", "prettier"],
+	"parser": "babel-eslint"
+}
