@@ -1,0 +1,36 @@
+@import '../../core/scss/variable.scss';
+
+.modal {
+	width: 80%;
+	position: absolute;
+	padding: 30px;
+	border: 1px solid $black-text;
+
+	&__title {
+		font-size: 16px;
+		font-weight: 600;
+		color: $black-text;
+		margin-bottom: 30px;
+	}
+	&__close {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+	}
+}
+.form {
+	display: flex;
+	flex-direction: column;
+
+	&__inputs {
+    color: $black-text;
+    font-size: 16px;
+    padding: 5px 10px;
+	}
+  &__btn{
+    padding: 20px;
+    color: $black-text;
+    background: $white;
+    border: 1px solid $black-text;
+  }
+}

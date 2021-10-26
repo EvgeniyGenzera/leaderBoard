@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { FC } from 'react';
 import userImg from '../../assets/images/user.png';
 import arrowBottom from '../../assets/images/icons/arrow-bottom.png';
 import pencil from '../../assets/images/icons/pencil.png';
 import style from './row.module.scss';
+import AddUserScore from '../../components/Modals/addUserScore';
+import { idText } from 'typescript';
+import { IUser } from '../../core/types/types';
 
-const index = () => {
+type RowProps = {
+	user: IUser;
+};
+
+const index: FC<RowProps> = ({ user }) => {
 	return (
 		<div className={style.row}>
 			<div className={style.info}>
 				<span className={style.info__places}>1st</span>
 				<img src={userImg} alt="user" className={style.info__img} />
-				<span className={style.info__score}>291</span>
-				<p className={style.info__name}>Nicola Greaves</p>
+				<span className={style.info__score}>{user.score}</span>
+				<p className={style.info__name}>{user.name}</p>
 			</div>
 			<div className={style.places}>
 				<p className={style.places__info}>
