@@ -53,7 +53,6 @@
 	align-items: center;
 
 	&__info {
-		color: $main-red;
 		font-family: Heebo;
 		font-style: normal;
 		font-weight: normal;
@@ -64,5 +63,18 @@
 	&__edit {
 		width: 18px;
 		height: 18px;
+
+		&:hover {
+			cursor: pointer;
+		}
 	}
+}
+.green {
+	color: $main-green;
+}
+.yellow {
+	color: $yellow;
+}
+.red {
+	color: $main-red;
 }

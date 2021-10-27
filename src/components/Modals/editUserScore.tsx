@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../core/scss/hooks/redux';
+import { IUser } from '../../core/types/types';
+import { editUser, generatePositionSort } from '../../core/utils/utils';
+import { setNewUsers, setSortUsers } from '../../store/reducers/boardSlice';
 import style from './forms.module.scss';
 
-const index = () => {
+interface AddModalProps {
+	setModalVisible: (value: boolean) => void;
+	history: number;
+	user: IUser;
+}
+const index: FC<AddModalProps> = ({ setModalVisible, history, user }) => {
+	const { sortUsers, users } = useAppSelector(state => state.boardReducer);
+	const dispatch = useAppDispatch();
+	const [name, setName] = useState(user.name);
+	const [score, setScore] = useState(user.score);
+	const clickHandler = () => {
+		dispatch(setNewUsers({ ...user, name: name, score: score, position: history }));
+		setModalVisible(false);
+	};
 	return (
 		<div className={style.modal}>
 			<h2 className={style.modal__title}>Edit user Score</h2>
-			<span className={style.modal__close}>&#10060;</span>
+			<span onClick={() => setModalVisible(false)} className={style.modal__close}>
+				&#10060;
+			</span>
 			<form action="" className={style.form}>
-				<select name="" id="" className={style.form__inputs}>
-					<option>Name 1 </option>
-					<option>Name 2 </option>
-					<option>Name 3 </option>
-				</select>
-				<input type="number" className={style.form__inputs} placeholder="Score:" min="0" />
-				<button className={style.form__btn}>Save</button>
+				<input type="text" className={style.form__inputs} value={name} onChange={e => setName(e.currentTarget.value)} />
+				<input
+					type="number"
+					className={style.form__inputs}
+					value={score}
+					onChange={e => setScore(parseInt(e.currentTarget.value))}
+					min="0"
+				/>
+
+				<button
+					className={style.form__btn}
+					onClick={e => {
+						e.preventDefault();
+						clickHandler();
+					}}
+				>
+					Save
+				</button>
 			</form>
 		</div>
 	);
