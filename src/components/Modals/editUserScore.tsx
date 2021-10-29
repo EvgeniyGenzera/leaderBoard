@@ -1,22 +1,20 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../core/scss/hooks/redux';
 import { IUser } from '../../core/types/types';
-import { editUser, generatePositionSort } from '../../core/utils/utils';
-import { setNewUsers, setSortUsers } from '../../store/reducers/boardSlice';
+import { setNewUsers } from '../../store/reducers/boardSlice';
 import style from './forms.module.scss';
 
 interface AddModalProps {
 	setModalVisible: (value: boolean) => void;
-	history: number;
 	user: IUser;
 }
-const index: FC<AddModalProps> = ({ setModalVisible, history, user }) => {
+const index: FC<AddModalProps> = ({ setModalVisible, user }) => {
 	const { sortUsers, users } = useAppSelector(state => state.boardReducer);
 	const dispatch = useAppDispatch();
 	const [name, setName] = useState(user.name);
 	const [score, setScore] = useState(user.score);
 	const clickHandler = () => {
-		dispatch(setNewUsers({ ...user, name: name, score: score, position: history }));
+		dispatch(setNewUsers({ ...user, prevName: user.name, name, score }));
 		setModalVisible(false);
 	};
 	return (

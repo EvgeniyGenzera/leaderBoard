@@ -3,26 +3,20 @@ import { useAppDispatch, useAppSelector } from '../../core/scss/hooks/redux';
 import { fetchUsers } from '../../store/reducers/ActionCreators';
 import Row from '../Row';
 import style from './table.module.scss';
-import { generatePositionSort, generatePositionUnSort, getTopUsers } from '../../core/utils/utils';
-import { setSortUsers, setUnSortUsers, setTopUsers } from '../../store/reducers/boardSlice';
+import { getTopUsers } from '../../core/utils/utils';
+import { setTopUsers } from '../../store/reducers/boardSlice';
 import AddUserScore from '../../components/Modals/addUserScore';
+import Loader from '../Base/Loader';
 
 const index = () => {
 	const dispatch = useAppDispatch();
-	const { users, unSortUsers, sortUsers } = useAppSelector(state => state.boardReducer);
+	const { users, sortUsers, userLoading } = useAppSelector(state => state.boardReducer);
 	const [sort, setSort] = useState(false);
 	const [history, setHistory] = useState(0);
 	const [modalVisible, setModalVisible] = useState(false);
 	useEffect(() => {
 		dispatch(fetchUsers());
 	}, []);
-	useEffect(() => {
-		dispatch(setSortUsers(generatePositionSort(users, history, sortUsers)));
-	}, [users]);
-	useEffect(() => {
-		dispatch(setUnSortUsers(generatePositionUnSort(users, unSortUsers, sortUsers, history)));
-		dispatch(setTopUsers(getTopUsers(sortUsers, history, 4)));
-	}, [sortUsers]);
 
 	return (
 		<div className={style.table}>
@@ -43,8 +37,7 @@ const index = () => {
 				<button
 					className={style.header__days}
 					onClick={() => {
-						dispatch(fetchUsers());
-						setHistory(history + 1);
+						users[history + 1] ? setHistory(history + 1) : dispatch(fetchUsers()), setHistory(history + 1);
 					}}
 					disabled={users.length === history}
 				>
@@ -55,12 +48,12 @@ const index = () => {
 				</button>
 			</div>
 			<div className={style.table__content}>
-				{!sort &&
-					unSortUsers.length > history &&
-					unSortUsers[history].map(user => <Row user={user} history={history} key={user.id} />)}
-				{sort &&
-					sortUsers.length > history &&
-					sortUsers[history].map(user => <Row user={user} history={history} key={user.id} />)}
+				{userLoading && <Loader />}
+				{!sort
+					? users[history] &&
+					  users[history].map(user => <Row user={user} active={history === users.length - 1} key={user.id} />)
+					: sortUsers[history] &&
+					  sortUsers[history].map(user => <Row user={user} active={history === users.length - 1} key={user.id} />)}
 			</div>
 			{modalVisible && <AddUserScore setModalVisible={setModalVisible} />}
 		</div>

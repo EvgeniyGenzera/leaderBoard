@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as rax from 'retry-axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useAppSelector } from '../../core/scss/hooks/redux';
 
 export const fetchUsers = createAsyncThunk('user/fetchAll', async (_, ThunkAPI) => {
 	try {
@@ -28,11 +29,13 @@ export const fetchUsers = createAsyncThunk('user/fetchAll', async (_, ThunkAPI) 
 	}
 });
 export const createUsers = createAsyncThunk('user/CreateUser', async (userName: string, ThunkAPI) => {
+	console.log(userName);
+
 	try {
 		const response = await axios({
 			url: 'http://coding-test.cube19.io/frontend/v1/process-user',
 			method: 'POST',
-			data: userName,
+			data: { userName },
 		});
 		return response.data;
 	} catch (e) {

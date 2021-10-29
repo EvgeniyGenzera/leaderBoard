@@ -3,6 +3,7 @@ export interface IUser {
 	score: number;
 	position: number;
 	id: string;
+	prevName: string;
 	place: {
 		title: string;
 		arrow: string;

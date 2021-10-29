@@ -10,10 +10,10 @@ import EditUserScore from '../../components/Modals/editUserScore';
 
 type RowProps = {
 	user: IUser;
-	history: number;
+	active?: boolean;
 };
 
-const index: FC<RowProps> = ({ user, history }) => {
+const index: FC<RowProps> = ({ user, active }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	let imgArrow: string;
 	if (user.place.arrow === 'arrowTop') {
@@ -33,11 +33,12 @@ const index: FC<RowProps> = ({ user, history }) => {
 			</div>
 			<div className={style.places}>
 				<p className={style.places__info}>
-					<img src={imgArrow} alt="arrow" /> <span className={style[`${user.place.color}`]}>{user.place.title}</span>
+					<img src={imgArrow} alt="arrow" />
+					<span className={style[`${user.place.color}`]}>{user.place.title}</span>
 				</p>
-				<img className={style.places__edit} src={pencil} alt="edit" onClick={() => setModalVisible(true)} />
+				{active && <img className={style.places__edit} src={pencil} alt="edit" onClick={() => setModalVisible(true)} />}
 			</div>
-			{modalVisible && <EditUserScore setModalVisible={setModalVisible} history={history} user={user} />}
+			{modalVisible && active && <EditUserScore setModalVisible={setModalVisible} user={user} />}
 		</div>
 	);
 };

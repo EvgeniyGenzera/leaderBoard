@@ -21,7 +21,7 @@ const index: FC<ModalProps> = ({ setModalVisible }) => {
 				&#10060;
 			</span>
 			<form action="" className={style.form}>
-				<input type="text" placeholder="Name" className={style.form__inputs} onChange={() => userNameHandler} />
+				<input type="text" placeholder="Name" className={style.form__inputs} onChange={userNameHandler} />
 				<button
 					className={style.form__btn}
 					onClick={e => {
